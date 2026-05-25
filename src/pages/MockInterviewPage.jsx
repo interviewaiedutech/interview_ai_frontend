@@ -239,7 +239,7 @@ const MockInterviewPage = () => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = { type: "video", transcript, duration };
     setAnswers(newAnswers);
-
+    console.log("tech video answer:", transcript);
     setSubmittingAnswer(true);
     try {
       await axios.post(`${API_URL}/interview/submit-answer`, {
