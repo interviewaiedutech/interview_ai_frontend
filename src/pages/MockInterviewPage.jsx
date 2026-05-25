@@ -232,12 +232,16 @@ const MockInterviewPage = () => {
 
   // Virtual Mode Submit
   const handleVirtualAnswerComplete = async (
-    videoUrl,
+    // videoUrl,
     transcript,
     duration,
   ) => {
     const newAnswers = [...answers];
-    newAnswers[currentQuestionIndex] = { type: "video", transcript, duration };
+    newAnswers[currentQuestionIndex] = {
+      type: "video",
+      transcript: transcript || " ",
+      duration: duration || 0,
+    };
     setAnswers(newAnswers);
     console.log("tech video answer:", transcript);
     setSubmittingAnswer(true);
@@ -640,7 +644,7 @@ const MockInterviewPage = () => {
                   onClick={async () => {
                     const success = await enterFullScreen();
 
-                    if (success && document.fullscreenElement) {
+                    if (success || document.fullscreenElement) {
                       setFullscreenWarning(false);
                     }
                   }}
@@ -675,7 +679,7 @@ const MockInterviewPage = () => {
                 onClick={async () => {
                   const success = await enterFullScreen();
 
-                  if (success && document.fullscreenElement) {
+                  if (success || document.fullscreenElement) {
                     setFullscreenWarning(false);
                   }
                 }}
@@ -772,7 +776,7 @@ const MockInterviewPage = () => {
   // ====================== RESULTS PAGE ======================
   if (step === "results") {
     const totalPossible = questions.length * 20;
-    const percentage = Math.round((score || 0 / totalPossible) * 100);
+    const percentage = Math.round(((score || 0) / totalPossible) * 100);
 
     return (
       <div className="interview-container">

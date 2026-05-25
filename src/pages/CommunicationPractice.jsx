@@ -580,7 +580,7 @@ const CommunicationPractice = () => {
                   onClick={async () => {
                     const success = await enterFullscreen();
 
-                    if (success && document.fullscreenElement) {
+                    if (success || document.fullscreenElement) {
                       setFullscreenWarning(false);
                     }
                   }}
