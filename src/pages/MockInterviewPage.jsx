@@ -207,6 +207,7 @@ const MockInterviewPage = () => {
     setSubmittingAnswer(true);
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = currentAnswer;
+    console.log("tech answer: ", currentAnswer);
     setAnswers(newAnswers);
 
     try {

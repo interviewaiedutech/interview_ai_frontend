@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import Registerillustration from "./Registerillustration";
+// import Registerillustration from "./Registerillustration";
 import "../styles/AuthPages.css";
 import API_URL from "../config/api";
 
