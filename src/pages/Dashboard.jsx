@@ -19,6 +19,7 @@ import {
   Cell,
 } from "recharts";
 import "../styles/Dashboard.css";
+import { generateWeeklyGoals } from "../utils/generateWeeklyGoals";
 import API_URL from "../config/api";
 
 // ─── SVG Icon Components ──────────────────────────────────────────────────────
@@ -471,12 +472,13 @@ const Dashboard = () => {
   const [moduleStats, setModuleStats] = useState({});
   const [weeklyActivity, setWeeklyActivity] = useState(WEEKLY_PLACEHOLDER);
   const [loading, setLoading] = useState(true);
-  const [weeklyGoals, setWeeklyGoals] = useState([
-    { id: 1, label: "Complete 5 practice sessions", target: 5, current: 0 },
-    { id: 2, label: "Finish 2 aptitude tests", target: 2, current: 0 },
-    { id: 3, label: "Complete 1 communication mock", target: 1, current: 0 },
-    { id: 4, label: "Maintain daily streak", target: 7, current: 0 },
-  ]);
+  // const [weeklyGoals, setWeeklyGoals] = useState([
+  //   { id: 1, label: "Complete 5 practice sessions", target: 5, current: 0 },
+  //   { id: 2, label: "Finish 2 aptitude tests", target: 2, current: 0 },
+  //   { id: 3, label: "Complete 1 communication mock", target: 1, current: 0 },
+  //   { id: 4, label: "Maintain daily streak", target: 7, current: 0 },
+  // ]);
+  const [weeklyGoals, setWeeklyGoals] = useState([]);
   const token = localStorage.getItem("token");
 
   const totalSessions = useAnimatedCounter(progress?.totalSessions || 0);
@@ -488,13 +490,16 @@ const Dashboard = () => {
 
   useEffect(() => {
     const init = async () => {
-      await Promise.all([fetchProgress(), fetchSessions(), fetchStreak()]);
+      // await Promise.all([fetchProgress(), fetchSessions(), fetchStreak()]);/
+      const streak = await fetchStreak();
+
+      await Promise.all([fetchProgress(streak), fetchSessions()]);
       setLoading(false);
     };
     init();
   }, []);
 
-  const fetchProgress = async () => {
+  const fetchProgress = async (streakInfo) => {
     try {
       const res = await axios.get(`${API_URL}/progress`, {
         headers: {
@@ -524,6 +529,14 @@ const Dashboard = () => {
       });
 
       setModuleStats(formattedStats);
+
+      const dynamicGoals = generateWeeklyGoals(
+        p.weeklyAnalytics,
+        streakInfo,
+        p.moduleStats,
+      );
+
+      setWeeklyGoals(dynamicGoals);
       // const map = {};
       // (p?.topicsCovered || []).forEach((t) => {
       //   const key = t.topic?.toLowerCase().replace(/\s+/g, "");
@@ -587,17 +600,17 @@ const Dashboard = () => {
       }
 
       // Update weekly goals current values
-      setWeeklyGoals((prev) =>
-        prev.map((g, i) => ({
-          ...g,
-          current:
-            i === 0
-              ? Math.min(g.target, p?.totalSessions || 0)
-              : i === 3
-                ? Math.min(g.target, streakData?.currentStreak || 0)
-                : g.current,
-        })),
-      );
+      // setWeeklyGoals((prev) =>
+      //   prev.map((g, i) => ({
+      //     ...g,
+      //     current:
+      //       i === 0
+      //         ? Math.min(g.target, p?.totalSessions || 0)
+      //         : i === 3
+      //           ? Math.min(g.target, streakData?.currentStreak || 0)
+      //           : g.current,
+      //   })),
+      // );
     } catch (e) {
       console.error("Error fetching progress:", e);
     }
@@ -624,6 +637,7 @@ const Dashboard = () => {
         },
       });
       setStreakData(res.data);
+      return res.data;
     } catch (e) {
       console.error("Error fetching streak:", e);
     }
