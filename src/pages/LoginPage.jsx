@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import Loginillustration from "./Loginillustration";
 import "../styles/AuthPages.css";
@@ -10,6 +10,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  const verified = searchParams.get("verified");
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -59,6 +61,50 @@ const LoginPage = () => {
           {error && (
             <div className="auth-error">
               <span>⚠</span> {error}
+            </div>
+          )}
+          {verified === "true" && (
+            <div
+              style={{
+                background: "#dcfce7",
+                color: "#166534",
+                padding: "12px",
+                borderRadius: "8px",
+                marginBottom: "20px",
+                fontWeight: "500",
+              }}
+            >
+              ✅ Email verified successfully. Please login.
+            </div>
+          )}
+
+          {verified === "already" && (
+            <div
+              style={{
+                background: "#dbeafe",
+                color: "#1d4ed8",
+                padding: "12px",
+                borderRadius: "8px",
+                marginBottom: "20px",
+                fontWeight: "500",
+              }}
+            >
+              ℹ️ Email already verified.
+            </div>
+          )}
+
+          {verified === "expired" && (
+            <div
+              style={{
+                background: "#fee2e2",
+                color: "#991b1b",
+                padding: "12px",
+                borderRadius: "8px",
+                marginBottom: "20px",
+                fontWeight: "500",
+              }}
+            >
+              ❌ Verification link expired or invalid.
             </div>
           )}
 

@@ -23,6 +23,8 @@ import CommunicationPractice from "./pages/CommunicationPractice";
 import JDInterviewPrep from "./pages/JDInterviewPrep";
 import NotFound from "./pages/NotFound";
 import ScrollToSection from "./components/ScrollToSection";
+import CheckEmail from "./pages/CheckEmail";
+import VerifyEmail from "./pages/VerifyEmail";
 
 // import IELTSHub from "./pages/IELTSHub";
 // import IELTSReading from "./pages/IELTSReading";
@@ -70,6 +72,8 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/oauth-success" element={<OAuthSuccess />} />
+              <Route path="/check-email" element={<CheckEmail />} />
+              <Route path="/verify-email/:token" element={<VerifyEmail />} />
               {/* Protected Routes */}
 
               <Route

@@ -70,24 +70,41 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       const response = await axios.post(`${API_URL}/auth/register`, userData);
-      const { token: newToken, user: newUser } = response.data;
 
-      // Store token in localStorage
-      localStorage.setItem("token", newToken);
-      setToken(newToken);
-      setUser(newUser);
-
-      return { success: true };
+      return {
+        success: true,
+        message: response.data.message,
+      };
     } catch (error) {
       console.error("Registration error:", error);
+
       return {
         success: false,
-        error:
-          error.response?.data?.message ||
-          "Registration failed. Please try again.",
+        error: error.response?.data?.message || "Registration failed",
       };
     }
   };
+  // const register = async (userData) => {
+  //   try {
+  //     const response = await axios.post(`${API_URL}/auth/register`, userData);
+  //     const { token: newToken, user: newUser } = response.data;
+
+  //     // Store token in localStorage
+  //     localStorage.setItem("token", newToken);
+  //     setToken(newToken);
+  //     setUser(newUser);
+
+  //     return { success: true };
+  //   } catch (error) {
+  //     console.error("Registration error:", error);
+  //     return {
+  //       success: false,
+  //       error:
+  //         error.response?.data?.message ||
+  //         "Registration failed. Please try again.",
+  //     };
+  //   }
+  // };
 
   // Login existing user
   const login = async (email, password) => {

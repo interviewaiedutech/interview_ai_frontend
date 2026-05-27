@@ -36,7 +36,11 @@ const RegisterPage = () => {
     const { confirmPassword, ...userData } = formData;
     const result = await register(userData);
     if (result.success) {
-      navigate("/dashboard");
+      navigate("/check-email", {
+        state: {
+          email: formData.email,
+        },
+      });
     } else {
       setError(result.error);
     }
