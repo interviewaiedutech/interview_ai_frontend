@@ -1,12 +1,33 @@
 import { WEEKLY_GOAL_TEMPLATES } from "../data/weeklyGoalTemplates";
 
 export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
+  const getWeekSeed = () => {
+    const now = new Date();
+
+    const firstDay = new Date(now.getFullYear(), 0, 1);
+
+    const days = Math.floor((now - firstDay) / 86400000);
+
+    return Math.ceil((days + firstDay.getDay() + 1) / 7);
+  };
+
+  const seededShuffle = (array, seed) => {
+    const shuffled = [...array];
+
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const random = Math.sin(seed + i) * 10000;
+
+      const j = Math.floor(Math.abs(random) % (i + 1));
+
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    return shuffled;
+  };
   if (!analytics) return [];
+  const weekSeed = getWeekSeed();
 
-  const shuffledGoals = [...WEEKLY_GOAL_TEMPLATES].sort(
-    () => Math.random() - 0.5,
-  );
-
+  const shuffledGoals = seededShuffle(WEEKLY_GOAL_TEMPLATES, weekSeed);
   const selectedGoals = [];
 
   shuffledGoals.forEach((goal) => {
@@ -18,7 +39,7 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
       case "sessions":
         selectedGoals.push({
           ...goal,
-          current: analytics.totalSessions || 0,
+          current: Math.min(goal.target, analytics.totalSessions || 0),
         });
         break;
 
@@ -30,7 +51,7 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
         if ((moduleStats?.technical?.score || 0) < 75) {
           selectedGoals.push({
             ...goal,
-            current: analytics.technicalSessions || 0,
+            current: Math.min(goal.target, analytics.totalSessions || 0),
           });
         }
         break;
@@ -43,7 +64,7 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
         if ((moduleStats?.aptitude?.score || 0) < 75) {
           selectedGoals.push({
             ...goal,
-            current: analytics.aptitudeSessions || 0,
+            current: Math.min(goal.target, analytics.aptitudeSessions || 0),
           });
         }
         break;
@@ -51,7 +72,7 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
       case "aptitude_score":
         selectedGoals.push({
           ...goal,
-          current: moduleStats?.aptitude?.score || 0,
+          current: Math.min(goal.target, moduleStats?.aptitude?.score || 0),
         });
         break;
 
@@ -63,7 +84,10 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
         if ((moduleStats?.communication?.score || 0) < 80) {
           selectedGoals.push({
             ...goal,
-            current: analytics.communicationSessions || 0,
+            current: Math.min(
+              goal.target,
+              analytics.communicationSessions || 0,
+            ),
           });
         }
         break;
@@ -71,21 +95,27 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
       case "professional":
         selectedGoals.push({
           ...goal,
-          current: moduleStats?.professional?.sessions || 0,
+          current: Math.min(
+            goal.target,
+            moduleStats?.professional?.sessions || 0,
+          ),
         });
         break;
 
       case "hr":
         selectedGoals.push({
           ...goal,
-          current: moduleStats?.hr?.sessions || 0,
+          current: Math.min(goal.target, moduleStats?.hr?.sessions || 0),
         });
         break;
 
       case "presentation":
         selectedGoals.push({
           ...goal,
-          current: moduleStats?.presentation?.sessions || 0,
+          current: Math.min(
+            goal.target,
+            moduleStats?.presentation?.sessions || 0,
+          ),
         });
         break;
 
@@ -96,7 +126,7 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
       case "email":
         selectedGoals.push({
           ...goal,
-          current: analytics.emailSessions || 0,
+          current: Math.min(goal.target, analytics.emailSessions || 0),
         });
         break;
 
@@ -107,7 +137,7 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
       case "jdprep":
         selectedGoals.push({
           ...goal,
-          current: analytics.jdprepSessions || 0,
+          current: Math.min(goal.target, analytics.jdprepSessions || 0),
         });
         break;
 
@@ -129,7 +159,7 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
       case "score":
         selectedGoals.push({
           ...goal,
-          current: analytics.avgScore || 0,
+          current: Math.min(goal.target, analytics.avgScore || 0),
         });
         break;
 
@@ -140,7 +170,10 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
       case "practice_time":
         selectedGoals.push({
           ...goal,
-          current: Number(((analytics.totalSessions || 0) * 0.5).toFixed(1)),
+          current: Math.min(
+            goal.target,
+            Number(((analytics.totalSessions || 0) * 0.5).toFixed(1)),
+          ),
         });
         break;
 
@@ -151,7 +184,7 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
       case "daily_consistency":
         selectedGoals.push({
           ...goal,
-          current: analytics.activeDays || 0,
+          current: Math.min(goal.target, analytics.activeDays || 0),
         });
         break;
 
@@ -162,7 +195,7 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
       case "perfect_score":
         selectedGoals.push({
           ...goal,
-          current: analytics.highestScore || 0,
+          current: Math.min(goal.target, analytics.highestScore || 0),
         });
         break;
 
@@ -181,7 +214,7 @@ export const generateWeeklyGoals = (analytics, streak, moduleStats) => {
 
         selectedGoals.push({
           ...goal,
-          current: practicedModules,
+          current: Math.min(goal.target, practicedModules),
         });
 
         break;
