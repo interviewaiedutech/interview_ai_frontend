@@ -69,7 +69,7 @@
 }
 
 .nav-link {
-  font-size: 0.88rem;
+  /* font-size: 0.88rem; */
   font-weight: 500;
   color: var(--brand-text);
   text-decoration: none;

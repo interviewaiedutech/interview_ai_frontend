@@ -1,0 +1,418 @@
+/* ============================================================
+   Settings.css — InterviewAI Admin
+   Theme: Clean white, enterprise SaaS
+   ============================================================ */
+
+.admin-settings {
+  animation: fadeUp 0.35s ease both;
+}
+
+/* ── Header ── */
+.settings-header {
+  margin-bottom: 24px;
+}
+
+.settings-header h1 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.4px;
+}
+
+.settings-header p {
+  font-size: 0.855rem;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+/* ── Settings Tabs ── */
+.settings-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+.settings-tab {
+  padding: 6px 14px;
+  border-radius: 5px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: "Geist", sans-serif;
+  transition: all var(--transition);
+}
+
+.settings-tab.active {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+
+.settings-tab:not(.active):hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Grid ── */
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* ── Card ── */
+.settings-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  transition: all var(--transition);
+  animation: fadeUp 0.35s ease both;
+  box-shadow: var(--shadow-sm);
+}
+
+.settings-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.settings-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.settings-card:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.settings-card:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+.settings-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.settings-card h3 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 18px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.settings-card-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Toggle rows */
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.setting-row-info {
+  flex: 1;
+  padding-right: 16px;
+}
+
+.setting-row-label {
+  font-size: 0.855rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  display: block;
+}
+
+.setting-row-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  display: block;
+}
+
+/* Backwards compat */
+.setting-row span {
+  font-size: 0.855rem;
+  color: var(--text-secondary);
+}
+
+/* Styled toggle switch */
+.setting-row input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 40px;
+  height: 22px;
+  border-radius: 99px;
+  background: var(--bg-tertiary);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.22s;
+  flex-shrink: 0;
+}
+
+.setting-row input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  top: 50%;
+  left: 2.5px;
+  transform: translateY(-50%);
+  transition: all 0.22s;
+  box-shadow: var(--shadow-sm);
+}
+
+.setting-row input[type="checkbox"]:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.setting-row input[type="checkbox"]:checked::after {
+  background: #fff;
+  left: calc(100% - 17.5px);
+  box-shadow:
+    0 0 0 1.5px rgba(37, 99, 235, 0.15),
+    var(--shadow-sm);
+}
+
+/* Provider boxes */
+.provider-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+  transition: all var(--transition);
+  cursor: default;
+}
+
+.provider-box:last-child {
+  margin-bottom: 0;
+}
+
+.provider-box:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-tertiary);
+}
+
+.provider-box-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.provider-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.provider-box p {
+  font-size: 0.855rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.provider-box span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: var(--success-dim);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  letter-spacing: 0.02em;
+}
+
+.provider-box:last-child span {
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+/* System info rows */
+.settings-card:last-child p {
+  font-size: 0.855rem;
+  color: var(--text-secondary);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-card:last-child p:last-child {
+  border-bottom: none;
+}
+
+.settings-card:last-child p::after {
+  content: attr(data-value);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.83rem;
+}
+
+/* Settings action buttons */
+.settings-card button,
+.settings-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.83rem;
+  font-weight: 600;
+  font-family: "Geist", sans-serif;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-top: 6px;
+}
+
+.settings-card button:hover,
+.settings-action-btn:hover {
+  color: var(--accent);
+  border-color: rgba(37, 99, 235, 0.3);
+  background: var(--accent-dim);
+}
+
+.settings-card button.danger,
+.settings-action-btn.danger {
+  color: var(--danger);
+  border-color: rgba(239, 68, 68, 0.2);
+  background: var(--danger-dim);
+}
+
+.settings-card button.danger:hover,
+.settings-action-btn.danger:hover {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.12);
+}
+
+/* Save banner */
+.settings-save-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  animation: fadeUp 0.25s ease both;
+}
+
+.settings-save-bar p {
+  font-size: 0.855rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.settings-save-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  font-size: 0.83rem;
+  font-weight: 600;
+  font-family: "Geist", sans-serif;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.settings-save-btn:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Mobile: 480px ── */
+@media (max-width: 480px) {
+  .settings-tabs {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .settings-tab {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+  .settings-card {
+    padding: 16px;
+  }
+  .settings-card h3 {
+    font-size: 0.85rem;
+  }
+  .setting-row {
+    gap: 10px;
+  }
+  .setting-row-info {
+    padding-right: 8px;
+  }
+  .provider-box {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .settings-save-bar {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .settings-save-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

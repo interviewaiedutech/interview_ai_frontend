@@ -36,23 +36,14 @@ const AptitudePractice = () => {
 
       if (restore) {
         setSelectedTopic(saved.selectedTopic || "");
-
         setQuestions(saved.questions || []);
-
         setCurrentIndex(saved.currentIndex || 0);
-
         setSelectedAnswer(saved.selectedAnswer || "");
-
         setShowResult(saved.showResult || false);
-
         setScore(saved.score || 0);
-
         setAnswered(saved.answered || []);
-
         setSessionComplete(saved.sessionComplete || false);
-
         setSessionId(saved.sessionId || null);
-
         setStartTime(saved.startTime || null);
       } else {
         clearAptitudeSession();
@@ -177,32 +168,48 @@ const AptitudePractice = () => {
           explanation: currentQuestion.explanation,
         },
       ]);
+      if (currentIndex + 1 < questions.length) {
+        setCurrentIndex((prev) => prev + 1);
+        setSelectedAnswer("");
+      } else {
+        const totalTimeSpent = Math.floor((Date.now() - startTime) / 1000);
 
-      setShowResult(true);
+        try {
+          await axios.post(`${API_URL}/aptitude/session/complete`, {
+            sessionId,
+            timeSpent: totalTimeSpent,
+          });
+        } catch (error) {
+          console.error("Error completing session:", error);
+        }
+
+        setSessionComplete(true);
+      }
+      // setShowResult(true);
     } catch (error) {
       console.error("Error submitting answer:", error);
     }
   };
 
-  const handleNextQuestion = async () => {
-    if (currentIndex + 1 < questions.length) {
-      setCurrentIndex((prev) => prev + 1);
-      setSelectedAnswer("");
-      setShowResult(false);
-    } else {
-      // Complete the session
-      const totalTimeSpent = Math.floor((Date.now() - startTime) / 1000);
-      try {
-        await axios.post(`${API_URL}/aptitude/session/complete`, {
-          sessionId,
-          timeSpent: totalTimeSpent,
-        });
-      } catch (error) {
-        console.error("Error completing session:", error);
-      }
-      setSessionComplete(true);
-    }
-  };
+  // const handleNextQuestion = async () => {
+  //   if (currentIndex + 1 < questions.length) {
+  //     setCurrentIndex((prev) => prev + 1);
+  //     setSelectedAnswer("");
+  //     // setShowResult(false);
+  //   } else {
+  //     // Complete the session
+  //     const totalTimeSpent = Math.floor((Date.now() - startTime) / 1000);
+  //     try {
+  //       await axios.post(`${API_URL}/aptitude/session/complete`, {
+  //         sessionId,
+  //         timeSpent: totalTimeSpent,
+  //       });
+  //     } catch (error) {
+  //       console.error("Error completing session:", error);
+  //     }
+  //     setSessionComplete(true);
+  //   }
+  // };
 
   const resetPractice = () => {
     clearAptitudeSession();
@@ -363,56 +370,35 @@ const AptitudePractice = () => {
         </div>
       </div>
 
-      {!showResult ? (
-        <div className="question-container">
-          <div className="question-card-aptitude">
-            <h3 className="question-text">{currentQuestion?.question}</h3>
-            <div className="options-list">
-              {currentQuestion?.options?.map((option, idx) => (
-                <label
-                  key={idx}
-                  className={`option-item ${selectedAnswer === option ? "selected" : ""}`}
-                >
-                  <input
-                    type="radio"
-                    name="answer"
-                    value={option}
-                    checked={selectedAnswer === option}
-                    onChange={() => handleAnswerSelect(option)}
-                  />
-                  <span>{option}</span>
-                </label>
-              ))}
-            </div>
-            <button
-              onClick={handleSubmitAnswer}
-              className="submit-btn"
-              disabled={!selectedAnswer}
-            >
-              Submit Answer
-            </button>
+      <div className="question-container">
+        <div className="question-card-aptitude">
+          <h3 className="question-text">{currentQuestion?.question}</h3>
+          <div className="options-list">
+            {currentQuestion?.options?.map((option, idx) => (
+              <label
+                key={idx}
+                className={`option-item ${selectedAnswer === option ? "selected" : ""}`}
+              >
+                <input
+                  type="radio"
+                  name="answer"
+                  value={option}
+                  checked={selectedAnswer === option}
+                  onChange={() => handleAnswerSelect(option)}
+                />
+                <span>{option}</span>
+              </label>
+            ))}
           </div>
-        </div>
-      ) : (
-        <div className="result-container">
-          <div
-            className={`result-card ${answered[currentIndex]?.isCorrect ? "correct" : "incorrect"}`}
+          <button
+            onClick={handleSubmitAnswer}
+            className="submit-btn"
+            disabled={!selectedAnswer}
           >
-            <div className="result-icon">
-              {answered[currentIndex]?.isCorrect ? "✅" : "❌"}
-            </div>
-            <h3>
-              {answered[currentIndex]?.isCorrect ? "Correct!" : "Incorrect"}
-            </h3>
-            <p className="explanation">{answered[currentIndex]?.explanation}</p>
-            <button onClick={handleNextQuestion} className="next-btn">
-              {currentIndex + 1 < questions.length
-                ? "Next Question →"
-                : "View Results →"}
-            </button>
-          </div>
+            Submit Answer
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 };

@@ -12,7 +12,12 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(() => {
+    const adminToken = localStorage.getItem("adminToken");
+    const userToken = localStorage.getItem("token");
+
+    return adminToken || userToken || null;
+  });
   // Add streak to user state 13-05-2026
   const [streak, setStreak] = useState({ currentStreak: 0, longestStreak: 0 });
 
@@ -114,12 +119,24 @@ export const AuthProvider = ({ children }) => {
         password,
       });
       const { token: newToken, user: newUser } = response.data;
+      if (newUser.accountType === "admin") {
+        // Save admin session
+        localStorage.setItem("adminToken", newToken);
+        localStorage.setItem("admin", JSON.stringify(newUser));
+      } else {
+        // Remove admin session
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("admin");
 
-      localStorage.setItem("token", newToken);
+        // Save user session
+        localStorage.setItem("token", newToken);
+        localStorage.setItem("user", JSON.stringify(newUser));
+      }
+
       setToken(newToken);
       setUser(newUser);
 
-      return { success: true };
+      return { success: true, user: newUser };
     } catch (error) {
       console.error("Login error:", error);
       return {
@@ -134,6 +151,10 @@ export const AuthProvider = ({ children }) => {
   // Logout user
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("adminToken");
+
+    localStorage.removeItem("user");
+    localStorage.removeItem("admin");
     delete axios.defaults.headers.common["Authorization"];
     setToken(null);
     setUser(null);

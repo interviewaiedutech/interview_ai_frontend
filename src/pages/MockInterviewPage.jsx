@@ -306,24 +306,41 @@ const MockInterviewPage = () => {
       hr: "category-hr",
       coding: "category-coding",
       scenario: "category-scenario",
+      system_design: "category-system-design",
+      architecture: "category-architecture",
+      debugging: "category-debugging",
+      behavioral: "category-behavioral",
+      optimization: "category-optimization",
     };
     return colors[category] || "category-default";
   };
 
   // ====================== SETUP PAGE ======================
   if (step === "setup") {
-    // ... (Your existing setup page code - unchanged)
     const roles = [
       "Frontend Developer",
       "Backend Developer",
       "Full Stack Developer",
       "UI/UX Designer",
-      "Data Analyst",
       "DevOps Engineer",
       "Product Manager",
       "Mobile Developer",
       "QA Engineer",
       "Security Engineer",
+      "Cloud Engineer",
+      "Data Analyst",
+      "Data Scientist",
+      "Business Analyst",
+      "AI Engineer",
+      "Machine Learning Engineer",
+      "Project Manager",
+      "Technical Support Engineer",
+      "HR Executive",
+      "Sales Executive",
+      "Digital Marketing Specialist",
+      "Content Writer",
+      "Graduate Trainee",
+      "Student",
     ];
     const experienceLevels = ["Beginner", "Intermediate", "Advanced", "Expert"];
     const technologies = [
@@ -624,13 +641,22 @@ const MockInterviewPage = () => {
   }
 
   // ====================== INTERVIEW PAGE ======================
+  const textCategories = [
+    "coding",
+    "system_design",
+    "architecture",
+    "debugging",
+  ];
   if (step === "interview" && questions.length > 0) {
     const showFullscreenOverlay = fullscreenWarning && step === "interview";
     const currentQuestion = questions[currentQuestionIndex];
     const progress = (currentQuestionIndex / questions.length) * 100;
 
     // Virtual Interview
-    if (interviewMode === "virtual" && currentQuestion.category !== "coding") {
+    if (
+      interviewMode === "virtual" &&
+      !textCategories.includes(currentQuestion.category)
+    ) {
       return (
         <div className="interview-container">
           {showFullscreenOverlay && (
@@ -719,7 +745,7 @@ const MockInterviewPage = () => {
 
           <div className="question-header-video">
             <h2 className="question-text">{currentQuestion.text}</h2>
-
+            {/* <div className="question-meta"></div> */}
             <TextToSpeech text={currentQuestion.text} autoSpeak={true} />
           </div>
 
@@ -729,16 +755,16 @@ const MockInterviewPage = () => {
               value={currentAnswer}
               onChange={(e) => setCurrentAnswer(e.target.value)}
               onPaste={(e) => e.preventDefault()} // Disable Paste
-              rows={currentQuestion.category === "coding" ? 16 : 12}
+              rows={textCategories.includes(currentQuestion.category) ? 16 : 12}
               className={
                 currentQuestion.category === "coding"
                   ? "coding-answer-input"
                   : "answer-input"
               }
               placeholder={
-                currentQuestion.category === "coding"
-                  ? "Write your code here..."
-                  : "Type your detailed answer here... (Paste is disabled)"
+                textCategories.includes(currentQuestion.category)
+                  ? "Write your answer here..."
+                  : "Type your detailed answer here..."
               }
             />
             <div className="answer-actions">

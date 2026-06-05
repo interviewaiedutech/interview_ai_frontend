@@ -257,7 +257,8 @@
 /* ─── AUTHENTICATED PAGE LAYOUT ──────────────────────────────────── */
 /* Pushes page content to the right of the sidebar on desktop */
 .auth-layout {
-  padding-top: 64px; /* below the fixed top bar */
+  /* below the fixed top bar */
+  padding-top: 64px;
   min-height: 100vh;
   background: #f5f6fa;
   transition: margin-left 0.32s cubic-bezier(0.4, 0, 0.2, 1);

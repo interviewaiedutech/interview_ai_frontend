@@ -351,6 +351,26 @@
   background: #fce7f3;
   color: #9d174d;
 }
+.category-system-design {
+  background: #fef3c7;
+  color: #667eea;
+}
+.category-architecture {
+  background: #fef3c7;
+  color: #8b5cf6;
+}
+.category-debugging {
+  background: #fef3c7;
+  color: #10b981;
+}
+.category-behavioral {
+  background: #fef3c7;
+  color: #1e40af;
+}
+.category-optimization {
+  background: #fef3c7;
+  color: #9d174d;
+}
 
 .category-default {
   background: #f1f5f9;

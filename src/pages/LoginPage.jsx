@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "../contexts/AuthContext";
 import Loginillustration from "./Loginillustration";
 import "../styles/AuthPages.css";
@@ -12,8 +13,9 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const verified = searchParams.get("verified");
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +23,13 @@ const LoginPage = () => {
     setLoading(true);
     const result = await login(email, password);
     if (result.success) {
+      if (result.user.accountType === "admin") {
+        logout();
+
+        alert("Please use Admin Login");
+
+        return;
+      }
       navigate("/dashboard");
     } else {
       setError(result.error);
@@ -126,14 +135,26 @@ const LoginPage = () => {
               {/* Password */}
               <div className="auth-field">
                 <label className="auth-field-label">Password</label>
-                <input
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="auth-input"
-                  placeholder="Enter your Password here"
-                />
+                <div className="password-field">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="auth-input"
+                    placeholder="Enter your Password here"
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+              </div>
+              <div className="auth-forgot-password">
+                <Link to="/forgot-password">Forgot Password?</Link>
               </div>
             </div>
 

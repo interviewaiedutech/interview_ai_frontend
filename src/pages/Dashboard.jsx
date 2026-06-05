@@ -464,6 +464,7 @@ const WEEKLY_PLACEHOLDER = [
 // ─── Main Dashboard ───────────────────────────────────────────────────────────
 const Dashboard = () => {
   const { user } = useAuth();
+  console.log("Dashboard User:", user);
   const navigate = useNavigate();
   const [progress, setProgress] = useState(null);
   const [recentSessions, setRecentSessions] = useState([]);

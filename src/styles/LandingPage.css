@@ -68,6 +68,7 @@
 
 .hero-content-left {
   animation: slideInLeft 0.8s ease-out;
+  margin-left: 40px;
 }
 
 .hero-badge {
@@ -357,14 +358,14 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(
+  /* background: linear-gradient(
     90deg,
     transparent,
     #8b5cf6,
     #ec4899,
     #8b5cf6,
     transparent
-  );
+  ); */
 }
 
 .section-badge {
@@ -405,7 +406,7 @@
 }
 
 /* Timeline Center Line */
-.timeline-container::before {
+/* .timeline-container::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -414,7 +415,7 @@
   width: 2px;
   background: linear-gradient(180deg, #8b5cf6, #ec4899, #8b5cf6);
   transform: translateX(-50%);
-}
+} */
 
 /* Timeline Item */
 .timeline-item {
@@ -566,7 +567,7 @@
 /* Steps CTA */
 .steps-cta {
   text-align: center;
-  margin-top: 3rem;
+  /* margin-top: 3rem; */
 }
 
 .start-journey-btn {
@@ -577,6 +578,7 @@
   border-radius: 50px;
   font-size: 0.9rem;
   font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
@@ -712,7 +714,7 @@
    TESTIMONIALS SECTION - HORIZONTAL SCROLL
    ============================================ */
 .testimonials-section {
-  padding: 100px 0;
+  /* padding: 100px 0; */
   background: #ffffff;
   position: relative;
   overflow: hidden;
@@ -1195,8 +1197,8 @@
    FOOTER
    ============================================ */
 .footer {
-  background: #8195aff3;
-  color: white;
+  background: #e6d5e8f3;
+  color: rgb(8, 8, 8);
   padding: 60px 0 30px;
 }
 
@@ -1214,7 +1216,7 @@
 }
 
 .footer-description {
-  color: #e5e7ec;
+  color: #070707;
   line-height: 1.6;
 }
 
@@ -1232,7 +1234,7 @@
 }
 
 .footer-col ul li a {
-  color: #f6f9ff;
+  color: #060606;
   text-decoration: none;
   transition: color 0.3s ease;
 }
@@ -1245,7 +1247,7 @@
   text-align: center;
   padding-top: 30px;
   border-top: 1px solid #334155;
-  color: #e9ecf0;
+  color: #090909;
 }
 
 /* ============================================

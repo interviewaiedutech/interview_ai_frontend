@@ -8,13 +8,9 @@ import API_URL from "../config/api";
 
 const CheckEmail = () => {
   const location = useLocation();
-
   const email = location.state?.email;
-
   const [message, setMessage] = useState("");
-
   const [loading, setLoading] = useState(false);
-
   const [cooldown, setCooldown] = useState(30);
 
   useEffect(() => {
@@ -68,11 +64,12 @@ const CheckEmail = () => {
           textAlign: "center",
         }}
       >
-        <h1>Verify Your Email</h1>
+        <h1 style={{ color: "#050505" }}>Verify Your Email</h1>
 
         <p
           style={{
             marginTop: "20px",
+            color: "#4b46e5",
           }}
         >
           Verification email sent to:

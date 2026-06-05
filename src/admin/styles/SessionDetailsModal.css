@@ -1,0 +1,410 @@
+/* ============================================================
+   SessionDetailsModal.css — InterviewAI Admin
+   Theme: Clean white, enterprise SaaS
+   ============================================================ */
+
+/* ── Overlay ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: overlayIn 0.18s ease both;
+}
+
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Modal ── */
+.session-modal {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  animation: modalIn 0.28s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  position: relative;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.93) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Top accent bar */
+.session-modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+/* ── Modal Header ── */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 26px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-primary);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.modal-header h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
+}
+
+.modal-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.close-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+
+.close-btn:hover {
+  color: var(--danger);
+  border-color: rgba(239, 68, 68, 0.3);
+  background: var(--danger-dim);
+}
+
+/* ── Meta Grid ── */
+.session-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 18px 26px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.session-meta > div {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 11px 13px;
+  box-shadow: var(--shadow-xs);
+}
+
+.session-meta span {
+  display: block;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.session-meta strong {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ── Section ── */
+.session-section {
+  padding: 18px 26px;
+  border-bottom: 1px solid var(--border);
+}
+
+.session-section:last-child {
+  border-bottom: none;
+}
+
+.session-section h3 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.session-section h3::before {
+  content: "";
+  width: 3px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Question cards */
+.question-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 15px 17px;
+  margin-bottom: 10px;
+  transition: all var(--transition);
+}
+
+.question-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.question-card:last-child {
+  margin-bottom: 0;
+}
+
+.question-card p {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  margin-bottom: 11px;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.question-number {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid rgba(37, 99, 235, 0.15);
+  padding: 2px 8px;
+  border-radius: 99px;
+  display: inline-block;
+  margin-bottom: 8px;
+  letter-spacing: 0.03em;
+}
+
+.answer-box,
+.feedback-box {
+  border-radius: 7px;
+  padding: 10px 13px;
+  margin-bottom: 7px;
+}
+
+.answer-box {
+  background: rgba(37, 99, 235, 0.04);
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  border-left: 3px solid var(--accent);
+}
+
+.feedback-box {
+  background: rgba(124, 58, 237, 0.04);
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  border-left: 3px solid var(--accent2);
+}
+
+.answer-box span,
+.feedback-box span {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.answer-box p,
+.feedback-box p {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.answer-box p {
+  color: var(--text-primary);
+}
+
+.score-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--success);
+  background: var(--success-dim);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 3px 10px;
+  border-radius: 99px;
+  margin-top: 7px;
+}
+
+/* Overall eval list */
+.session-section ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.session-section ul li {
+  font-size: 0.855rem;
+  color: var(--text-secondary);
+  padding: 10px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  transition: all var(--transition);
+}
+
+.session-section ul li:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-tertiary);
+}
+
+.session-section ul li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* Score summary row */
+.score-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 18px 26px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-secondary);
+}
+
+.score-box-lg {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+  box-shadow: var(--shadow-xs);
+}
+
+.score-box-lg h4 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.4px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.score-box-lg p {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+/* Scrollbar inside modal */
+.session-modal::-webkit-scrollbar {
+  width: 4px;
+}
+.session-modal::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 99px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .session-meta {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .modal-header,
+  .session-meta,
+  .session-section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .score-summary {
+    grid-template-columns: 1fr;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* ── Mobile: 768px ── */
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .session-modal {
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+}
+
+/* ── Mobile: 480px ── */
+@media (max-width: 480px) {
+  .session-meta {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 12px;
+  }
+  .score-summary {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 12px;
+    gap: 8px;
+  }
+  .score-box-lg h4 {
+    font-size: 1.3rem;
+  }
+  .question-card {
+    padding: 12px;
+  }
+  .answer-box,
+  .feedback-box {
+    padding: 8px 10px;
+  }
+}

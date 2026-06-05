@@ -298,6 +298,7 @@ const CommunicationPractice = () => {
         },
       );
       setSessionId(response.data.sessionId);
+      console.log("communication start session", response);
     } catch (error) {
       console.error("Error starting session:", error);
     }

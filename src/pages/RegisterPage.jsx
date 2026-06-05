@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 // import Registerillustration from "./Registerillustration";
 import "../styles/AuthPages.css";
 import API_URL from "../config/api";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -58,8 +60,6 @@ const RegisterPage = () => {
             <img
               src="./lovable interviewai signup.jpg"
               alt="Interview Illustration"
-              width={100}
-              height={100}
             />
           </div>
           <div className="auth-panel-overlay">
@@ -122,28 +122,46 @@ const RegisterPage = () => {
               {/* Password */}
               <div className="auth-field">
                 <label className="auth-field-label">Password</label>
-                <input
-                  name="password"
-                  type="password"
-                  required
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="auth-input"
-                  placeholder="Enter your Password here"
-                />
+                <div className="password-field">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    required
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="auth-input"
+                    placeholder="Enter your Password here"
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               </div>
               {/* Confirm Password - ADDED */}
               <div className="auth-field">
                 <label className="auth-field-label">Confirm Password</label>
-                <input
-                  name="confirmPassword"
-                  type="password"
-                  required
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className="auth-input"
-                  placeholder="Confirm your Password here"
-                />
+                <div className="password-field">
+                  <input
+                    name="confirmPassword"
+                    type={showPassword ? "text" : "password"}
+                    required
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    className="auth-input"
+                    placeholder="Confirm your Password here"
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               </div>
             </div>
 

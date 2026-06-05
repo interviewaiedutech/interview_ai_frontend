@@ -9,7 +9,9 @@
 .auth-page {
   display: flex;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+  background: white;
   font-family:
     "Inter",
     -apple-system,
@@ -78,6 +80,7 @@
   width: 100%;
   height: 100%;
   display: block;
+  margin-top: 20px;
 }
 
 /* .svg-wrapper {
@@ -165,6 +168,7 @@
   font-weight: 800;
   color: #1f2937;
   margin-bottom: 12px;
+  margin-top: 10px;
   letter-spacing: -0.5px;
 }
 
@@ -236,6 +240,49 @@
   color: #9ca3af;
   font-weight: 400;
 }
+.password-field {
+  position: relative;
+  width: 100%;
+}
+
+.password-field .auth-input {
+  width: 100%;
+  padding-right: 45px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #64748b;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-forgot-password {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.auth-forgot-password a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4f46e5;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.auth-forgot-password a:hover {
+  color: #4338ca;
+  text-decoration: underline;
+}
 
 /* Submit Button */
 .auth-submit-btn {
@@ -250,6 +297,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   margin-bottom: 2px;
+  margin-top: 7px;
 }
 
 .auth-submit-btn:hover:not(:disabled) {
@@ -261,7 +309,23 @@
   opacity: 0.7;
   cursor: not-allowed;
 }
+.back-to-login {
+  text-align: center;
+  margin-top: 20px;
+}
 
+.back-to-login a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.back-to-login a:hover {
+  color: #4338ca;
+  text-decoration: underline;
+}
 /* Divider */
 .auth-divider {
   text-align: center;
