@@ -37,7 +37,7 @@ const AdminNavbar = ({ sidebarOpen, setSidebarOpen }) => {
 
         <div
           className="admin-dashboard-profile"
-          onClick={() => navigate("/admin/profile")}
+          onClick={() => navigate("/admin-control/profile")}
         >
           <div>
             <p>{admin?.name || "Admin"}</p>
