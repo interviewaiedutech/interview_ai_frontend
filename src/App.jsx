@@ -34,6 +34,12 @@ import AdminRoute from "./admin/routes/AdminRoute";
 import AdminLanding from "./admin/pages/AdminLanding";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Leaderboard from "./pages/Leaderboard";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import FAQ from "./pages/FAQ";
 
 // import IELTSHub from "./pages/IELTSHub";
 // import IELTSReading from "./pages/IELTSReading";
@@ -124,6 +130,15 @@ const AppContent = () => {
 
             <Route path="/reset-password/:token" element={<ResetPassword />} />
 
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/contactus" element={<ContactUs />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route
+              path="/terms-and-conditions"
+              element={<TermsAndConditions />}
+            />
+
             {/* Protected Routes */}
 
             <Route
@@ -161,7 +176,14 @@ const AppContent = () => {
                 </PrivateRoute>
               }
             />
-
+            <Route
+              path="/leaderboard"
+              element={
+                <PrivateRoute>
+                  <Leaderboard />
+                </PrivateRoute>
+              }
+            />
             <Route
               path="/resources"
               element={

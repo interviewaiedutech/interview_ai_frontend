@@ -4,6 +4,7 @@ import UserDetailsModal from "../components/UserDetailsModal";
 import "../styles/Users.css";
 import axios from "axios";
 import API_URL from "../../config/api";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Users = () => {
   const [search, setSearch] = useState("");
@@ -13,6 +14,7 @@ const Users = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [newUser, setNewUser] = useState({
     name: "",
@@ -364,19 +366,27 @@ const Users = () => {
                 })
               }
             />
-
-            <input
-              type="password"
-              placeholder="Password"
-              value={newUser.password}
-              onChange={(e) =>
-                setNewUser({
-                  ...newUser,
-                  password: e.target.value,
-                })
-              }
-            />
-
+            <div className="password-field">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                value={newUser.password}
+                onChange={(e) =>
+                  setNewUser({
+                    ...newUser,
+                    password: e.target.value,
+                  })
+                }
+                className="auth-input"
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
             <input
               placeholder="Role"
               value={newUser.role}

@@ -1238,9 +1238,16 @@
   text-decoration: none;
   transition: color 0.3s ease;
 }
-
+.footer-col ul li Link {
+  color: #060606;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 .footer-col ul li a:hover {
-  color: rgb(238, 210, 210);
+  color: rgb(140, 94, 232);
+}
+.footer-col ul li Link:hover {
+  color: rgb(140, 94, 232);
 }
 
 .footer-bottom {

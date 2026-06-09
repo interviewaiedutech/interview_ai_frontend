@@ -1,0 +1,328 @@
+/* =============================================
+   Leaderboard.css — InterviewAI
+   White enterprise SaaS theme
+   ============================================= */
+
+/* ── Page Shell ─────────────────────────────── */
+.leaderboard-page {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  padding: 32px 24px 64px;
+  font-family: "Geist", "Inter", sans-serif;
+  color: #0f172a;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ── Header ─────────────────────────────────── */
+.leaderboard-header {
+  margin-bottom: 32px;
+}
+
+.leaderboard-header h1 {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 6px;
+  letter-spacing: -0.4px;
+}
+
+.leaderboard-header p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ── Stat Cards ─────────────────────────────── */
+.leaderboard-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.leaderboard-stat-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px 24px;
+  text-align: center;
+  transition: box-shadow 0.2s ease;
+}
+
+.leaderboard-stat-card:hover {
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08);
+}
+
+.leaderboard-stat-card h2 {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #2563eb;
+  margin: 0 0 4px;
+  letter-spacing: -0.5px;
+}
+
+.leaderboard-stat-card p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── Podium ─────────────────────────────────── */
+.leaderboard-podium {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.podium-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: center;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+  position: relative;
+}
+
+.podium-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+/* Gold — 1st place accent */
+.podium-1 {
+  border-top: 3px solid #f59e0b;
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.04) 0%, #ffffff 40%);
+}
+
+/* Silver — 2nd place */
+.podium-2 {
+  border-top: 3px solid #94a3b8;
+  background: linear-gradient(
+    180deg,
+    rgba(148, 163, 184, 0.04) 0%,
+    #ffffff 40%
+  );
+}
+
+/* Bronze — 3rd place */
+.podium-3 {
+  border-top: 3px solid #cd7c4b;
+  background: linear-gradient(180deg, rgba(205, 124, 75, 0.04) 0%, #ffffff 40%);
+}
+
+.podium-medal {
+  font-size: 28px;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.podium-card h3 {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.podium-card p {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+  margin: 0;
+}
+
+/* ── Search ─────────────────────────────────── */
+.leaderboard-search {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: "Geist", "Inter", sans-serif;
+  color: #0f172a;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+.leaderboard-search::placeholder {
+  color: #94a3b8;
+}
+
+.leaderboard-search:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* ── Table ──────────────────────────────────── */
+.leaderboard-table {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.leaderboard-table-header {
+  display: grid;
+  grid-template-columns: 60px 1fr 90px 90px;
+  padding: 10px 20px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.leaderboard-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 90px 90px;
+  padding: 13px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  color: #334155;
+  align-items: center;
+  transition: background 0.12s ease;
+}
+
+.leaderboard-row:last-child {
+  border-bottom: none;
+}
+
+.leaderboard-row:hover {
+  background: #f8fafc;
+}
+
+/* Highlight current user */
+.leaderboard-row.current-user {
+  background: rgba(37, 99, 235, 0.04);
+  border-left: 3px solid #2563eb;
+  padding-left: 17px;
+}
+
+.leaderboard-row.current-user:hover {
+  background: rgba(37, 99, 235, 0.07);
+}
+
+/* Rank column */
+.leaderboard-row span:first-child,
+.leaderboard-table-header span:first-child {
+  font-weight: 600;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.leaderboard-row.current-user span:first-child {
+  color: #2563eb;
+}
+
+/* Score column */
+.leaderboard-row span:nth-child(3) {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* Sessions column */
+.leaderboard-row span:nth-child(4) {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.leaderboard-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.pagination-btn {
+  border: none;
+  background: #4f46e5;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.pagination-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  font-weight: 600;
+  color: #475569;
+}
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 640px) {
+  .leaderboard-page {
+    padding: 20px 16px 48px;
+  }
+
+  .leaderboard-header h1 {
+    font-size: 22px;
+  }
+
+  .leaderboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .leaderboard-stat-card h2 {
+    font-size: 26px;
+  }
+
+  .leaderboard-podium {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .podium-card {
+    padding: 14px 10px;
+  }
+
+  .podium-medal {
+    font-size: 22px;
+  }
+
+  .podium-card h3 {
+    font-size: 12px;
+  }
+
+  .leaderboard-table-header,
+  .leaderboard-row {
+    grid-template-columns: 44px 1fr 70px 70px;
+    padding: 11px 14px;
+    font-size: 13px;
+  }
+
+  .leaderboard-row.current-user {
+    padding-left: 11px;
+  }
+}

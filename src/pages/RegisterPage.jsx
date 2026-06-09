@@ -20,6 +20,48 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
+  const getPasswordStrength = (password) => {
+    if (!password) {
+      return {
+        text: "",
+        color: "",
+        width: "0%",
+      };
+    }
+
+    let score = 0;
+
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+
+    if (score <= 2) {
+      return {
+        text: "Weak",
+        color: "#ef4444",
+        width: "33%",
+      };
+    }
+
+    if (score <= 4) {
+      return {
+        text: "Medium",
+        color: "#f59e0b",
+        width: "66%",
+      };
+    }
+
+    return {
+      text: "Strong",
+      color: "#10b981",
+      width: "100%",
+    };
+  };
+
+  const passwordStrength = getPasswordStrength(formData.password);
+
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -30,8 +72,13 @@ const RegisterPage = () => {
       setError("Passwords do not match");
       return;
     }
-    if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters");
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/;
+
+    if (!passwordRegex.test(formData.password)) {
+      setError(
+        "Password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character",
+      );
       return;
     }
     setLoading(true);
@@ -55,21 +102,12 @@ const RegisterPage = () => {
       <aside className="auth-panel">
         <div className="auth-panel-image">
           {/* <img src="./signup.png" alt="Interview Illustration" /> */}
-          <div className="svg-wrapper">
-            {/* <Registerillustration /> */}
-            <img
-              src="./lovable interviewai signup.jpg"
-              alt="Interview Illustration"
-            />
-          </div>
-          <div className="auth-panel-overlay">
-            {/* <Link to="/" className="auth-panel-logo">
-              Interview<span>AI</span>
-            </Link>
-            <div className="auth-panel-quote">
-              <p>"Ace your next interview with AI-powered practice sessions"</p>
-            </div> */}
-          </div>
+
+          {/* <Registerillustration /> */}
+          <img
+            src="./lovable interviewai signup.jpg"
+            alt="Interview Illustration"
+          />
         </div>
       </aside>
 
@@ -141,6 +179,76 @@ const RegisterPage = () => {
                   </button>
                 </div>
               </div>
+              {formData.password && (
+                <div className="password-strength">
+                  <div className="password-strength-bar">
+                    <div
+                      className="password-strength-fill"
+                      style={{
+                        width: passwordStrength.width,
+                        backgroundColor: passwordStrength.color,
+                      }}
+                    />
+                  </div>
+                  {formData.password && (
+                    <div className="password-rules">
+                      <div
+                        className={
+                          /[A-Z]/.test(formData.password)
+                            ? "rule-valid"
+                            : "rule"
+                        }
+                      >
+                        ✓ At least 1 uppercase letter
+                      </div>
+
+                      <div
+                        className={
+                          /[a-z]/.test(formData.password)
+                            ? "rule-valid"
+                            : "rule"
+                        }
+                      >
+                        ✓ At least 1 lowercase letter
+                      </div>
+
+                      <div
+                        className={
+                          /[0-9]/.test(formData.password)
+                            ? "rule-valid"
+                            : "rule"
+                        }
+                      >
+                        ✓ At least 1 number
+                      </div>
+
+                      <div
+                        className={
+                          /[^A-Za-z0-9]/.test(formData.password)
+                            ? "rule-valid"
+                            : "rule"
+                        }
+                      >
+                        ✓ At least 1 special character
+                      </div>
+
+                      <div
+                        className={
+                          formData.password.length >= 8 ? "rule-valid" : "rule"
+                        }
+                      >
+                        ✓ Minimum 8 characters
+                      </div>
+                    </div>
+                  )}
+                  <span
+                    className="password-strength-text"
+                    style={{ color: passwordStrength.color }}
+                  >
+                    {passwordStrength.text}
+                  </span>
+                </div>
+              )}
               {/* Confirm Password - ADDED */}
               <div className="auth-field">
                 <label className="auth-field-label">Confirm Password</label>

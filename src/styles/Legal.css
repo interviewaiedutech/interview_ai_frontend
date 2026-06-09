@@ -1,0 +1,130 @@
+/* =============================================
+   Legal.css — InterviewOS
+   Terms & Conditions · Privacy Policy
+   ============================================= */
+
+/* ── Page Shell ─────────────────────────────── */
+.legal-page {
+  min-height: 100vh;
+  background: #f8fafc;
+  padding: 56px 24px 80px;
+  font-family: "Geist", "Inter", sans-serif;
+}
+
+/* ── Container ──────────────────────────────── */
+.legal-container {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 52px 56px;
+}
+
+/* ── Document Title ─────────────────────────── */
+.legal-container h1 {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+  margin: 0 0 8px;
+}
+
+/* ── Last Updated badge ─────────────────────── */
+.legal-container > p:first-of-type {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 3px 12px;
+  margin: 0 0 40px;
+}
+
+/* ── Divider after title block ──────────────── */
+.legal-container > p:first-of-type::after {
+  content: "";
+  display: block;
+}
+
+/* ── Sections ───────────────────────────────── */
+.legal-container section {
+  padding: 28px 0;
+  border-top: 1px solid #f1f5f9;
+}
+
+.legal-container section:first-of-type {
+  border-top: 1px solid #e2e8f0;
+}
+
+/* ── Section Headings ───────────────────────── */
+.legal-container h2 {
+  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 650;
+  color: #0f172a;
+  margin: 0 0 10px;
+  letter-spacing: -0.1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Blue accent dot before each section heading */
+.legal-container h2::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2563eb;
+  flex-shrink: 0;
+}
+
+/* ── Body Text ──────────────────────────────── */
+.legal-container p {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: #475569;
+  margin: 0;
+}
+
+/* ── Email links ────────────────────────────── */
+.legal-container a,
+.legal-container p a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(37, 99, 235, 0.25);
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.legal-container a:hover {
+  color: #1d4ed8;
+  border-bottom-color: #1d4ed8;
+}
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 640px) {
+  .legal-page {
+    padding: 28px 16px 56px;
+  }
+
+  .legal-container {
+    padding: 32px 24px;
+    border-radius: 12px;
+  }
+
+  .legal-container h1 {
+    font-size: 24px;
+  }
+
+  .legal-container section {
+    padding: 22px 0;
+  }
+}

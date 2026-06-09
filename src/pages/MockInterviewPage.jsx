@@ -168,6 +168,7 @@ const MockInterviewPage = () => {
         `${API_URL}/interview/generate`,
         setupData,
       );
+      console.log("interview question", response.data);
       setQuestions(response.data.questions);
 
       const sessionResponse = await axios.post(

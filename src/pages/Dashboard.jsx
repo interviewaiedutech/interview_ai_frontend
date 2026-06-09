@@ -482,6 +482,10 @@ const Dashboard = () => {
   const [weeklyGoals, setWeeklyGoals] = useState([]);
   const token = localStorage.getItem("token");
 
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [userRank, setUserRank] = useState(null);
+  const [percentile, setPercentile] = useState(null);
+
   const totalSessions = useAnimatedCounter(progress?.totalSessions || 0);
   const avgScore = useAnimatedCounter(progress?.averageScore || 0);
   const totalQ = useAnimatedCounter(progress?.totalQuestionsAnswered || 0);
@@ -494,7 +498,11 @@ const Dashboard = () => {
       // await Promise.all([fetchProgress(), fetchSessions(), fetchStreak()]);/
       const streak = await fetchStreak();
 
-      await Promise.all([fetchProgress(streak), fetchSessions()]);
+      await Promise.all([
+        fetchProgress(streak),
+        fetchSessions(),
+        fetchLeaderboard(),
+      ]);
       setLoading(false);
     };
     init();
@@ -641,6 +649,25 @@ const Dashboard = () => {
       return res.data;
     } catch (e) {
       console.error("Error fetching streak:", e);
+    }
+  };
+
+  const fetchLeaderboard = async () => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/progress/leaderboard/technical`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      console.log("leaderboard data", response.data);
+      setLeaderboard(response.data.leaderboard);
+      setUserRank(response.data.currentUserRank);
+      setPercentile(response.data.percentile);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -908,9 +935,53 @@ const Dashboard = () => {
             })}
           </div>
         </section>
+        <section className="db-card db-leaderboard">
+          <div className="db-card-header">
+            <h2 className="db-card-title">🏆 Technical Leaderboard</h2>
 
+            <span className="db-card-sub">
+              Top performers in Technical Interviews
+            </span>
+          </div>
+
+          <div className="db-rank-summary">
+            <div className="db-rank-box">
+              <h3>#{userRank || "-"}</h3>
+              <p>Your Rank</p>
+            </div>
+
+            <div className="db-rank-box">
+              <h3>{percentile || 0}%</h3>
+              <p>Top Percentile</p>
+            </div>
+          </div>
+
+          <div className="db-leaderboard-list">
+            {(leaderboard || []).slice(0, 3).map((user, index) => (
+              <div
+                key={index}
+                className={`db-leader-row ${
+                  user.rank === userRank ? "active-user" : ""
+                }`}
+              >
+                <span>#{user.rank}</span>
+
+                <span>{user.name}</span>
+
+                <span>{user.averageScore}%</span>
+              </div>
+            ))}
+          </div>
+
+          <button
+            className="db-view-leaderboard-btn"
+            onClick={() => navigate("/leaderboard")}
+          >
+            View Full Leaderboard <Icon.ArrowRight />
+          </button>
+        </section>
         {/* ── Weekly Activity ──────────────────────────────── */}
-        <section className="db-card db-activity">
+        {/* <section className="db-card db-activity">
           <div className="db-card-header">
             <h2 className="db-card-title">Weekly Activity</h2>
             <span className="db-card-sub">Sessions per day</span>
@@ -950,7 +1021,7 @@ const Dashboard = () => {
               </BarChart>
             </ResponsiveContainer>
           </div>
-        </section>
+        </section> */}
 
         {/* ── Performance Trend ────────────────────────────── */}
         <section className="db-card db-trend">

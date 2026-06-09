@@ -689,7 +689,7 @@ const LandingPage = () => {
                   <a href="#features">Features</a>
                 </li>
                 <li>
-                  <a href="#pricing">Pricing</a>
+                  <a href="#how-it-works">How It Works</a>
                 </li>
                 <li>
                   <a href="#testimonials">Testimonials</a>
@@ -700,27 +700,27 @@ const LandingPage = () => {
               <h4>Company</h4>
               <ul>
                 <li>
-                  <a href="#">About Us</a>
+                  <Link to="/aboutus">About Us</Link>
                 </li>
                 <li>
-                  <a href="#">Blog</a>
+                  <Link to="/contactus">Contact Us</Link>
                 </li>
-                <li>
+                {/* <li>
                   <a href="#">Careers</a>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div className="footer-col">
               <h4>Support</h4>
               <ul>
                 <li>
-                  <a href="#">Help Center</a>
+                  <Link to="/faq">FAQ</Link>
                 </li>
                 <li>
-                  <a href="#">Contact Us</a>
+                  <Link to="/privacy-policy">Privacy Policy</Link>
                 </li>
                 <li>
-                  <a href="#">Privacy Policy</a>
+                  <Link to="/terms-and-conditions">Terms & Conditions</Link>
                 </li>
               </ul>
             </div>
