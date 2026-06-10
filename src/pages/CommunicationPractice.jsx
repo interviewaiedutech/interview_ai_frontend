@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import axios from "axios";
 import {
   saveCommunicationSession,
@@ -156,6 +156,8 @@ const CommunicationPractice = () => {
   // New state for Professional Comm (typed response)
   const [typedResponse, setTypedResponse] = useState("");
 
+  const recorderRef = useRef(null);
+
   useEffect(() => {
     const saved = getCommunicationSession();
 
@@ -298,7 +300,7 @@ const CommunicationPractice = () => {
         },
       );
       setSessionId(response.data.sessionId);
-      console.log("communication start session", response);
+      console.log("communication start session", response.data);
     } catch (error) {
       console.error("Error starting session:", error);
     }
@@ -319,7 +321,7 @@ const CommunicationPractice = () => {
       setDuration(recordedDuration);
       await exitFullscreen();
       setStep("results");
-      console.log("comm evaluation", response);
+      console.log("comm evaluation", response.data);
     } catch (error) {
       console.error("Evaluation error:", error);
       alert("Failed to evaluate answer");
@@ -667,6 +669,9 @@ const CommunicationPractice = () => {
                     <TextToSpeech
                       text={currentQuestion.question}
                       autoSpeak={true}
+                      onSpeakEnd={() => {
+                        recorderRef.current?.startWithCountdown();
+                      }}
                     />
                   </div>
                 </div>
@@ -686,7 +691,7 @@ const CommunicationPractice = () => {
 
             {/* ── RIGHT: Recorder ────────────────────────────── */}
             <div className="cp-recorder-panel">
-              <div className="cp-recorder-top">
+              {/*<div className="cp-recorder-top">
                 <div className="cp-progress-strip">
                   <div className="cp-progress-meta">
                     <span>Your Response</span>
@@ -699,7 +704,7 @@ const CommunicationPractice = () => {
                     />
                   </div>
                 </div>
-              </div>
+              </div>*/}
 
               <div className="cp-recorder-body">
                 {isProfessionalComm ? (
@@ -735,9 +740,10 @@ const CommunicationPractice = () => {
                 ) : (
                   /* CommunicationRecorder handles all recording state internally */
                   <CommunicationRecorder
+                    ref={recorderRef}
                     onRecordingComplete={handleRecordingComplete}
-                    autoStartDelay={5000} /* 5 s after AI finishes */
-                    silenceTimeout={10000} /* 10 s silence = auto submit */
+                    // autoStartDelay={5000} /* 5 s after AI finishes */
+                    // silenceTimeout={10000} /* 10 s silence = auto submit */
                   />
                 )}
               </div>

@@ -28,6 +28,32 @@ const Users = () => {
 
   const usersPerPage = 10;
 
+  const roles = [
+    "Frontend Developer",
+    "Backend Developer",
+    "Full Stack Developer",
+    "UI/UX Designer",
+    "DevOps Engineer",
+    "Product Manager",
+    "Mobile Developer",
+    "QA Engineer",
+    "Security Engineer",
+    "Cloud Engineer",
+    "Data Analyst",
+    "Data Scientist",
+    "Business Analyst",
+    "AI Engineer",
+    "Machine Learning Engineer",
+    "Project Manager",
+    "Technical Support Engineer",
+    "HR Executive",
+    "Sales Executive",
+    "Digital Marketing Specialist",
+    "Content Writer",
+    "Graduate Trainee",
+    "Student",
+  ];
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -194,14 +220,12 @@ const Users = () => {
           }}
         >
           <option value="all">All Roles</option>
-          <option value="Frontend Developer">Frontend Developer</option>
-          <option value="Backend Developer">Backend Developer</option>
-          <option value="Full Stack Developer">Full Stack Developer</option>
-          <option value="UI/UX Designer">UI/UX Designer</option>
-          <option value="Data Analyst">Data Analyst</option>
-          <option value="DevOps Engineer">DevOps Engineer</option>
-          <option value="Product Manager">Product Manager</option>
-          <option value="Mobile Developer">Mobile Developer</option>
+
+          {roles.map((role) => (
+            <option key={role} value={role}>
+              {role}
+            </option>
+          ))}
         </select>
 
         <select
@@ -387,8 +411,7 @@ const Users = () => {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
-            <input
-              placeholder="Role"
+            <select
               value={newUser.role}
               onChange={(e) =>
                 setNewUser({
@@ -396,7 +419,15 @@ const Users = () => {
                   role: e.target.value,
                 })
               }
-            />
+            >
+              <option value="">Select Role</option>
+
+              {roles.map((role) => (
+                <option key={role} value={role}>
+                  {role}
+                </option>
+              ))}
+            </select>
 
             <div className="modal-actions">
               <button onClick={() => setShowAddUserModal(false)}>Cancel</button>

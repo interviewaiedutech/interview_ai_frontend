@@ -1,4 +1,11 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import RecordRTC from "recordrtc";
 import "../styles/CommunicationRecorder.css";
 
@@ -9,11 +16,7 @@ const IconStop = () => (
   </svg>
 );
 
-const CommunicationRecorder = ({
-  onRecordingComplete,
-  autoStartDelay = 5000,
-  silenceTimeout = 10000,
-}) => {
+const CommunicationRecorder = forwardRef(({ onRecordingComplete }, ref) => {
   const [recordPhase, setRecordPhase] = useState("idle");
   const [recordingTime, setRecordingTime] = useState(0);
   const [countdown, setCountdown] = useState(0);
@@ -21,10 +24,10 @@ const CommunicationRecorder = ({
   const recorderRef = useRef(null);
   const streamRef = useRef(null);
   const timerRef = useRef(null);
-  const silenceTimerRef = useRef(null);
+  // const silenceTimerRef = useRef(null);
   const recognitionRef = useRef(null);
   const videoRef = useRef(null);
-  const lastSpeechTimeRef = useRef(Date.now());
+  // const lastSpeechTimeRef = useRef(Date.now());
   const finalTranscriptRef = useRef("");
   const recordPhaseRef = useRef("idle");
 
@@ -36,7 +39,7 @@ const CommunicationRecorder = ({
     if (streamRef.current)
       streamRef.current.getTracks().forEach((t) => t.stop());
     if (timerRef.current) clearInterval(timerRef.current);
-    if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+    // if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
     try {
       recognitionRef.current?.stop();
     } catch (_) {}
@@ -56,15 +59,14 @@ const CommunicationRecorder = ({
     recognition.lang = "en-US";
 
     recognition.onresult = (event) => {
-      lastSpeechTimeRef.current = Date.now();
-      if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-      let finalText = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        if (event.results[i].isFinal)
-          finalText += event.results[i][0].transcript + " ";
+      let transcript = "";
+
+      for (let i = 0; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript + " ";
       }
-      if (finalText) finalTranscriptRef.current += finalText;
-      startSilenceDetection();
+
+      finalTranscriptRef.current = transcript.trim();
+      // console.log("Transcript:", finalTranscriptRef.current);
     };
 
     recognition.onerror = (e) => console.error("Speech Recognition Error:", e);
@@ -115,12 +117,12 @@ const CommunicationRecorder = ({
     }
   };
 
-  useEffect(() => {
-    if (autoStartDelay > 0) {
-      const timer = setTimeout(() => startWithCountdown(), autoStartDelay);
-      return () => clearTimeout(timer);
-    }
-  }, [autoStartDelay]);
+  // useEffect(() => {
+  //   if (autoStartDelay > 0) {
+  //     const timer = setTimeout(() => startWithCountdown(), autoStartDelay);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [autoStartDelay]);
 
   const startWithCountdown = async () => {
     await startCamera();
@@ -136,7 +138,9 @@ const CommunicationRecorder = ({
       }
     }, 1000);
   };
-
+  useImperativeHandle(ref, () => ({
+    startWithCountdown,
+  }));
   const startRecording = async () => {
     const stream = await startCamera();
     if (!stream) return;
@@ -144,7 +148,7 @@ const CommunicationRecorder = ({
     setRecordPhase("recording");
     setRecordingTime(0);
     finalTranscriptRef.current = "";
-    lastSpeechTimeRef.current = Date.now();
+    // lastSpeechTimeRef.current = Date.now();
 
     recorderRef.current = new RecordRTC(stream, {
       type: "video",
@@ -160,29 +164,29 @@ const CommunicationRecorder = ({
       setRecordingTime((prev) => prev + 1);
     }, 1000);
 
-    startSilenceDetection();
+    // startSilenceDetection();
   };
 
   useEffect(() => {
     recordPhaseRef.current = recordPhase;
   }, [recordPhase]);
 
-  const startSilenceDetection = () => {
-    if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
+  // const startSilenceDetection = () => {
+  //   if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
 
-    silenceTimerRef.current = setTimeout(() => {
-      if (recordPhaseRef.current === "recording") {
-        if (Date.now() - lastSpeechTimeRef.current >= silenceTimeout) {
-          stopRecording(true);
-        }
-      }
-    }, silenceTimeout + 500);
-  };
+  //   silenceTimerRef.current = setTimeout(() => {
+  //     if (recordPhaseRef.current === "recording") {
+  //       if (Date.now() - lastSpeechTimeRef.current >= silenceTimeout) {
+  //         stopRecording(true);
+  //       }
+  //     }
+  //   }, silenceTimeout + 500);
+  // };
 
   const stopRecording = (autoSubmit = false) => {
     if (!recorderRef.current || recordPhase !== "recording") return;
     clearInterval(timerRef.current);
-    clearTimeout(silenceTimerRef.current);
+    // clearTimeout(silenceTimerRef.current);
     try {
       recognitionRef.current?.stop();
     } catch (_) {}
@@ -279,12 +283,10 @@ const CommunicationRecorder = ({
 
       {/* Tips */}
       {recordPhase === "recording" && (
-        <div className="cr-tips">
-          Fullscreen Active • Speak naturally • 10 s silence = Auto Submit
-        </div>
+        <div className="cr-tips">Speak naturally</div>
       )}
     </div>
   );
-};
+});
 
 export default CommunicationRecorder;
