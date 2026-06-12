@@ -1250,11 +1250,12 @@ const ProgressPage = () => {
               unit: "%",
             },
             {
-              label: "Reading Sessions",
-              icon: <Icon.Reading />,
+              label: "Practice Consistency",
+              icon: <Icon.Flame />,
               color: "#f59e0b",
-              ...computedGoals.reading,
-              unit: "sessions",
+              target: 7,
+              current: Math.min(streak.current || 0, 7),
+              unit: "days",
             },
           ].map((g, i) => {
             const pct = Math.round((g.current / g.target) * 100);
