@@ -528,12 +528,20 @@ const Dashboard = () => {
       const formattedStats = {};
 
       Object.keys(backendStats).forEach((key) => {
+        const sessions = backendStats[key].sessions || 0;
+
+        const level = Math.floor(sessions / 20) + 1;
+
+        const currentLevelSessions = sessions % 20;
+
+        const completion = Math.round((currentLevelSessions / 20) * 100);
+
         formattedStats[key] = {
-          count: backendStats[key].sessions || 0,
-
+          count: sessions,
           score: backendStats[key].score || 0,
-
-          completion: Math.min(100, (backendStats[key].sessions || 0) * 10),
+          completion,
+          level,
+          currentLevelSessions,
         };
       });
 
@@ -899,7 +907,10 @@ const Dashboard = () => {
                     </div>
                     <div className="db-module-meta">
                       <p className="db-module-name">{label}</p>
-                      <p className="db-module-count">{stats.count} sessions</p>
+                      <p className="db-module-count">
+                        Level {stats.level || 1} •{" "}
+                        {stats.currentLevelSessions || 0}/20 sessions
+                      </p>
                     </div>
                     <CircularProgress
                       value={stats.completion}
@@ -927,7 +938,7 @@ const Dashboard = () => {
                       Score: {stats.score || "—"}
                     </span>
                     <span className="db-module-complete">
-                      {stats.completion}% complete
+                      Level {stats.level || 1} Progress
                     </span>
                   </div>
                 </div>
