@@ -802,7 +802,7 @@ const MockInterviewPage = () => {
 
   // ====================== RESULTS PAGE ======================
   if (step === "results") {
-    const totalPossible = questions.length * 20;
+    const totalPossible = questions.length * 10;
     const percentage = Math.round(((score || 0) / totalPossible) * 100);
 
     return (
