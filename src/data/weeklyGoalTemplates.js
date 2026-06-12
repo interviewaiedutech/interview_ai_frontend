@@ -179,14 +179,6 @@ export const WEEKLY_GOAL_TEMPLATES = [
     difficulty: "medium",
   },
 
-  {
-    id: "streak_14",
-    type: "streak",
-    label: "Reach 14 day streak",
-    target: 14,
-    difficulty: "hard",
-  },
-
   // =====================================
   // SCORE GOALS
   // =====================================
